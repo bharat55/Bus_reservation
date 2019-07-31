@@ -4,7 +4,7 @@ class BusOwner < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enum status:{approved:"approve",unapproved:"unapprove",suspend:"suspend"}
+  enum status:{approve:"approve",disapprove:"disapprove",suspend:"suspend"}
 
   validates :name, presence: true
   validates :license_number, presence: true

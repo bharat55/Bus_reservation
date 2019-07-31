@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2019_07_31_110114) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status", default: "reject"
+    t.string "status", default: "disapprove"
     t.index ["confirmation_token"], name: "index_bus_owners_on_confirmation_token", unique: true
     t.index ["email"], name: "index_bus_owners_on_email", unique: true
     t.index ["reset_password_token"], name: "index_bus_owners_on_reset_password_token", unique: true

@@ -73,4 +73,11 @@ class BusesController < ApplicationController
     def bus_params
       params.require(:bus).permit(:name, :registration_number, :source, :destination, :total_seats, :bus_owners_id, :departure_time, :arrival_time)
     end
+
+    def required_valid_bus_owner
+      unless current_bus_owner.status == "approve"
+        flash[:error] = "You are not authorized to add bus !!! "
+        redirect_to root_path
+      end
+    end
 end
