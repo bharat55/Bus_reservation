@@ -1,12 +1,12 @@
-<h2>Customer SignUp</h2>
+<h2>BusOwner SignUp</h2>
 
 <%=link_to "customer", new_user_registration_path,class:"btn btn-secondary"%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 <%=link_to "Bus Owner", new_bus_owner_registration_path,class:"btn btn-secondary"%>
+
 <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-
     <%= f.text_field :name, autofocus: true, autocomplete: "email" %>
   </div>
 
@@ -16,9 +16,25 @@
   </div>
 
   <div class="field">
+    <%= f.text_field :license_number, autofocus: true, autocomplete: "email" %>
+  </div>
+
+
+  <div class="field">
+    <%= f.text_field :gst_number, autofocus: true, autocomplete: "email" %>
+  </div>
+
+
+
+<div class="field">
+    <%= f.number_field :experience, autofocus: true, autocomplete: "email" %>
+  </div>
+
+
+
+
+  <div class="field">
     <% if @minimum_password_length %>
-
-
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
@@ -33,4 +49,4 @@
   </div>
 <% end %>
 
-<%= render "users/shared/links" %>
+<%= render "bus_owners/shared/links" %>

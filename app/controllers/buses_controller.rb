@@ -1,5 +1,7 @@
 class BusesController < ApplicationController
   before_action :set_bus, only: [:show, :edit, :update, :destroy]
+  before_action :required_signin, except:[:index]
+  before_action :required_valid_bus_owner, only: [:new,:create,:edit,:update]
 
   # GET /buses
   # GET /buses.json

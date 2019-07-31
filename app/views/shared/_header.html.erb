@@ -8,17 +8,21 @@
         <a class="navbar-brand" href="#">BusReservation</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Link1", "/path1"  %></li>
-            <li><%= link_to "Link2", "/path2"  %></li>
-            <li><%= link_to "Link3", "/path3"  %></li>
+            <li><%= link_to "Home", root_path  %></li>
+
           </ul>
            <ul class="nav navbar-nav" style="float: right">
-            <% if current_user %>
-              <li><%= link_to "Account-Setting",edit_user_path(current_user)%>
-              <li><%=link_to "Log out",sessions_path,method: :delete%>
+            <% if  current_user %>
+                <li><%=link_to "#{current_user.name}", user_path(current_user)%>
+                <li><%= link_to "Account-Setting",edit_user_path(current_user)%>
+                <li><%=link_to "Log out", destroy_bus_owner_session_path,method: :delete%>
+            <%elsif current_bus_owner%>
+                <li><%=link_to "#{current_bus_owner.name}", bus_owner_path(current_user)%>
+                <li><%= link_to "Account-Setting",edit_bus_owner_path(current_user)%>>
+                <li><%=link_to "Log out", destroy_user_session_path,method: :delete%>
             <%else%>
-              <li><%=link_to "Sign Up"%>
-              <li><%=link_to "Sign in"%>
+                <li><%=link_to "Sign Up", new_user_registration_path%>
+                <li><%=link_to "Sign in" , new_user_session_path%>
             <%end%>
           </ul>
         </div>
