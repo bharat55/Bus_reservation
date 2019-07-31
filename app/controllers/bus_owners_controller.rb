@@ -1,5 +1,5 @@
 class BusOwnersController < ApplicationController
-  before_action :find_owner ,only:[:show,:approve,:unapprove,:suspend]
+  before_action :find_owner ,only:[:show,:approve,:disapprove,:suspend]
 
 
 

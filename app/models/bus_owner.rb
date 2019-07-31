@@ -5,7 +5,7 @@ class BusOwner < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum status:{approve:"approve",disapprove:"disapprove",suspend:"suspend"}
-
+  has_many :buses
   validates :name, presence: true
   validates :license_number, presence: true
   validates :gst_number, presence: true

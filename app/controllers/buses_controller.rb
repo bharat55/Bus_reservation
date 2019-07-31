@@ -17,6 +17,7 @@ class BusesController < ApplicationController
   # GET /buses/new
   def new
     @bus = Bus.new
+
   end
 
   # GET /buses/1/edit
@@ -27,6 +28,7 @@ class BusesController < ApplicationController
   # POST /buses.json
   def create
     @bus = Bus.new(bus_params)
+    @bus.bus_owners_id = current_bus_owner.id
 
     respond_to do |format|
       if @bus.save

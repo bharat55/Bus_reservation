@@ -12,7 +12,7 @@
             <%if current_bus_owner%>
               <li><%= link_to "Add Bus", new_bus_path %></li>
             <%end%>
-            <%if current_user.admin?%>
+            <%if admin?%>
                 <li><%= link_to "BusOwners", bus_owners_path %></li>
             <%end%>
 
