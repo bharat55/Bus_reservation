@@ -9,4 +9,7 @@ class Bus < ApplicationRecord
   validates :departure_time, presence: true
   validates :arrival_time, presence: true
 
+
+ scope :my_buses,->(bus_owner){where(bus_owner_id:bus_owner)}
+
 end

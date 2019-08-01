@@ -11,28 +11,25 @@
       <th><%= model_class.human_attribute_name(:destination) %></th>
       <th><%= model_class.human_attribute_name(:departure_time) %></th>
       <th><%= model_class.human_attribute_name(:arrival_time) %></th>
+      <th><%= model_class.human_attribute_name(:Available_Seats) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @buses.each do |bus| %>
-      <tr>
-
-        <td><%= bus.name %></td>
-
-        <td><%= bus.source %></td>
-        <td><%= bus.destination %></td>
-
-
-        <td><%=formate_time(bus.departure_time)%></td>
-        <td><%= formate_time(bus.arrival_time) %></td>
-
-        <td>
-          <%= link_to t('.show', :default => t("helpers.links.show")),
-                      bus_path(bus), :class => 'btn btn-default btn-xs' %>
-
-        </td>
-      </tr>
+    <%if owner_approved?(bus)%>
+          <tr>
+            <td><%= bus.name %></td>
+            <td><%= bus.source %></td>
+            <td><%= bus.destination %></td>
+            <td><%=formate_time(bus.departure_time)%></td>
+            <td><%= formate_time(bus.arrival_time) %></td>
+            <td><%= available_seats(bus) %></td>
+            <td>
+            <%=book_if_seat_available(bus)%>
+            </td>
+          </tr>
+      <%end%>
     <% end %>
   </tbody>
 </table>

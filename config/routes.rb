@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+
   resources :buses
 
+  get "reservations/filter/:scope" => "reservations#index", as: :filtered_reservations
+  get "buses/filter/:scope" => "buses#index", as: :filtered_buses
 
+  get "reservations/new/:id" => "reservations#new", as: :new_reservation
+
+  resources :reservations
   devise_for :bus_owners, controllers: {
         sessions: 'bus_owners/sessions'
       }

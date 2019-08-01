@@ -6,7 +6,12 @@ class BusesController < ApplicationController
   # GET /buses
   # GET /buses.json
   def index
-    @buses = Bus.all
+    case params[:scope]
+    when "my_buses"
+      @buses = Bus.my_buses(current_bus_owner.id)
+    else
+      @buses = Bus.all
+    end
   end
 
   # GET /buses/1

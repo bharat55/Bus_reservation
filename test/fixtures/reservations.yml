@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bus: one
+  user: one
+  bus_owner: one
+  seats: 1
+  date: 2019-08-01 13:17:23
+  time: 2019-08-01 13:17:23
+  from: MyString
+  to: MyString
+
+two:
+  bus: two
+  user: two
+  bus_owner: two
+  seats: 1
+  date: 2019-08-01 13:17:23
+  time: 2019-08-01 13:17:23
+  from: MyString
+  to: MyString

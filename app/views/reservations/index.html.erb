@@ -1,0 +1,37 @@
+<%- model_class = Reservation -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:bus) %></th>
+      <th><%= model_class.human_attribute_name(:Name) %></th>
+      <th><%= model_class.human_attribute_name(:Totalseats) %></th>
+      <th><%= model_class.human_attribute_name(:day) %></th>
+      <th><%= model_class.human_attribute_name(:date) %></th>
+
+      <th><%= model_class.human_attribute_name(:from) %></th>
+      <th><%= model_class.human_attribute_name(:to) %></th>
+
+      <!-- <th><%#=t '.actions', :default => t("helpers.actions") %></th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @reservations.each do |reservation| %>
+      <tr>
+
+        <td><%= reservation.bus.name %></td>
+        <td><%= customer_name(reservation) %></td>
+        <td><%= reservation.seats %></td>
+         <td><%= day_name(reservation.date) %></td>
+        <td><%= formatted_date(reservation.date) %></td>
+        <td><%= reservation.from %></td>
+        <td><%= reservation.to %></td>
+        <td>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

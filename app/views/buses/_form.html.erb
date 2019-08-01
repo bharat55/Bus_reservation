@@ -54,14 +54,14 @@
   <div class="form-group">
     <%= f.label :departure_time, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :departure_time, :class => 'form-control' %>
+      <%= f.time_field :departure_time, :class => 'form-control' %>
     </div>
     <%=f.error_span(:departure_time) %>
   </div>
   <div class="form-group">
     <%= f.label :arrival_time, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :arrival_time, :class => 'form-control' %>
+      <%= f.time_field :arrival_time, :class => 'form-control' %>
     </div>
     <%=f.error_span(:arrival_time) %>
   </div>
