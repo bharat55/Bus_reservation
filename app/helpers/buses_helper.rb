@@ -18,5 +18,10 @@ module BusesHelper
   def owner_approved?(bus)
     bus.bus_owner.approve?
   end
+
+
+  def right_bus_owner?(bus)
+    bus.bus_owner == current_bus_owner
+  end
 end
 
