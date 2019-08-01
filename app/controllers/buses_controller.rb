@@ -27,12 +27,12 @@ class BusesController < ApplicationController
   # POST /buses
   # POST /buses.json
   def create
-    @bus = Bus.new(bus_params)
-    @bus.bus_owners_id = current_bus_owner.id
 
+    @bus = Bus.new(bus_params)
+    @bus.bus_owner = current_bus_owner
     respond_to do |format|
       if @bus.save
-        format.html { redirect_to @bus, notice: 'Bus was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Bus was successfully created.' }
         format.json { render :show, status: :created, location: @bus }
       else
         format.html { render :new }

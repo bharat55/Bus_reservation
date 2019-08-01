@@ -49,12 +49,12 @@ ActiveRecord::Schema.define(version: 2019_07_31_110114) do
     t.string "source"
     t.string "destination"
     t.integer "total_seats"
-    t.integer "bus_owners_id"
+    t.integer "bus_owner_id"
     t.time "departure_time"
     t.time "arrival_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["bus_owners_id"], name: "index_buses_on_bus_owners_id"
+    t.index ["bus_owner_id"], name: "index_buses_on_bus_owner_id"
   end
 
   create_table "users", force: :cascade do |t|

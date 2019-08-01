@@ -24,8 +24,8 @@
         <td><%= bus.destination %></td>
 
 
-        <td><%= bus.departure_time %></td>
-        <td><%= bus.arrival_time %></td>
+        <td><%=formate_time(bus.departure_time)%></td>
+        <td><%= formate_time(bus.arrival_time) %></td>
 
         <td>
           <%= link_to t('.show', :default => t("helpers.links.show")),
