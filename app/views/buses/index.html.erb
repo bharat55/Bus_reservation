@@ -17,7 +17,8 @@
   </thead>
   <tbody>
     <% @buses.each do |bus| %>
-    <%if owner_approved?(bus)%>
+
+    <%if bus.active? && owner_approved?(bus)%>
           <tr>
             <td><%= bus.name %></td>
             <td><%= bus.source %></td>
@@ -28,9 +29,9 @@
             <td>
             <%=book_if_seat_available(bus)%>
             </td>
-          <%if right_bus_owner?(bus)%>
-            <td><%= link_to t('.edit', :default => t("helpers.links.edit")),edit_bus_path(bus),:class => 'btn btn-default btn-xs btn-warning'%></td>
-          <%end%>
+          <%#if right_bus_owner?(bus)%>
+            <!-- <td><%#= link_to t('.edit', :default => t("helpers.links.edit")),edit_bus_path(bus),:class => 'btn btn-default btn-xs btn-warning'%></td> -->
+          <%#end%>
           </tr>
       <%end%>
     <% end %>

@@ -10,6 +10,48 @@
   <dd><%= @bus_owner.email %></dd>
 
 
+<h2>My Buses</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:source) %></th>
+      <th><%= model_class.human_attribute_name(:destination) %></th>
+      <th><%= model_class.human_attribute_name(:departure_time) %></th>
+      <th><%= model_class.human_attribute_name(:arrival_time) %></th>
+      <th><%= model_class.human_attribute_name(:Available_Seats) %></th>
+       <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @bus_owner.buses.each do |bus| %>
+
+    <%if owner_approved?(bus)%>
+          <tr>
+            <td><%= bus.name %></td>
+            <td><%= bus.source %></td>
+            <td><%= bus.destination %></td>
+            <td><%=formate_time(bus.departure_time)%></td>
+            <td><%= formate_time(bus.arrival_time) %></td>
+            <td><%= available_seats(bus) %></td>
+            <td><%= bus.status%>
+            <td><%= status_button(bus) %></td>
+          <%if rightfull_person?(bus)%>
+            <td><%= link_to t('.edit', :default => t("helpers.links.edit")),edit_bus_path(bus),:class => 'btn btn-default btn-xs btn-warning'%></td>
+          <%end%>
+          </tr>
+      <%end%>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
 
 
 

@@ -20,8 +20,20 @@ module BusesHelper
   end
 
 
-  def right_bus_owner?(bus)
+  def rightfull_person?(bus)
     bus.bus_owner == current_bus_owner
   end
+
+  def status_button(bus)
+    case bus.status
+    when "active"
+     link_to t('.suspend', :default => t("helpers.links.suspend")),suspend_bus_path(bus),
+      :class => 'btn-default btn-danger'
+    when "suspend"
+      link_to t('.active', :default => t("helpers.links.active")),activate_bus_path(bus),
+      :class => 'btn-default btn-success'
+    end
+  end
+
 end
 

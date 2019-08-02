@@ -19,7 +19,7 @@
     <% @bus_owners.each do |owner| %>
       <tr>
 
-        <td><%= owner.name %></td>
+        <td><%=link_to owner.name,bus_owner_path(owner) %></td>
         <td><%= owner.email %></td>
         <td><%= owner.license_number %></td>
         <td><%= owner.gst_number%></td>

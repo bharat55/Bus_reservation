@@ -1,7 +1,8 @@
 class BusesController < ApplicationController
-  before_action :set_bus, only: [:show, :edit, :update, :destroy]
+  before_action :set_bus, only: [:show, :edit, :update, :destroy,:active,:suspend]
+  before_action :authorised_person, only:[:edit,:update,:active,:suspend]
   before_action :required_signin, except:[:index]
-  before_action :required_valid_bus_owner, only: [:new,:create,:edit,:update]
+  before_action :required_valid_bus_owner, only: [:new,:create]
 
   # GET /buses
   # GET /buses.json
@@ -27,6 +28,23 @@ class BusesController < ApplicationController
 
   # GET /buses/1/edit
   def edit
+  end
+
+  def active
+    @bus.status = "active"
+    if @bus.save
+      flash[:notice] = "Bus Activated, Ready to Go!"
+      redirect_to @bus.bus_owner
+    end
+
+  end
+
+  def suspend
+     @bus.status = "suspend"
+    if @bus.save
+      flash[:error] = "Bus Suspended!!!"
+      redirect_to @bus.bus_owner
+    end
   end
 
   # POST /buses
@@ -82,7 +100,7 @@ class BusesController < ApplicationController
     end
 
     def required_valid_bus_owner
-      unless current_bus_owner.status == "approve"
+      unless current_bus_owner && current_bus_owner.status == "approve"
         flash[:error] = "You are not authorized to add bus !!! "
         redirect_to root_path
       end

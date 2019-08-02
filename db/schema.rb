@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_01_074723) do
+ActiveRecord::Schema.define(version: 2019_08_02_080705) do
 
   create_table "bus_owners", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_08_01_074723) do
     t.time "arrival_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "active"
     t.index ["bus_owner_id"], name: "index_buses_on_bus_owner_id"
   end
 

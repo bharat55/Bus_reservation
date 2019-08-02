@@ -1,5 +1,8 @@
 class Bus < ApplicationRecord
   belongs_to :bus_owner
+  has_many :reservations
+
+  enum status:{active:"active",suspend:"suspend"}
 
   validates :name, presence: true
   validates :registration_number, presence: true

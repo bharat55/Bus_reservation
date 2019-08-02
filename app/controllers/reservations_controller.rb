@@ -32,8 +32,7 @@
       # POST /reservations
       # POST /reservations.json
       def create
-        @reservation = Reservation.new(reservation_params)
-        @reservation.bus_id = @@bus.id
+        @reservation = @@bus.reservations.new(reservation_params)
         @reservation.user_id = user_id
         @reservation.bus_owner_id = bus_owner_id
         @reservation.from = @@bus.source

@@ -10,11 +10,9 @@
       <th><%= model_class.human_attribute_name(:Totalseats) %></th>
       <th><%= model_class.human_attribute_name(:day) %></th>
       <th><%= model_class.human_attribute_name(:date) %></th>
-
       <th><%= model_class.human_attribute_name(:from) %></th>
       <th><%= model_class.human_attribute_name(:to) %></th>
-
-      <!-- <th><%#=t '.actions', :default => t("helpers.actions") %></th> -->
+     <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
@@ -28,10 +26,12 @@
         <td><%= formatted_date(reservation.date) %></td>
         <td><%= reservation.from %></td>
         <td><%= reservation.to %></td>
+      <%if current_user || current_bus_owner%>
         <td>
-
+          <%= link_to t('.cancel', :default => t("helpers.links.cancel")),reservation_path(reservation),method: :delete,:class => 'btn btn-default btn-xs btn-danger'%>
         </td>
       </tr>
+      <%end%>
     <% end %>
   </tbody>
 </table>

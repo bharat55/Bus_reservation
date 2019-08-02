@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   resources :buses
 
+  get "buses/:id/active" => "buses#active" ,as: :activate_bus
+  get "buses/:id/suspend" => "buses#suspend" ,as: :suspend_bus
   get "reservations/filter/:scope" => "reservations#index", as: :filtered_reservations
   get "buses/filter/:scope" => "buses#index", as: :filtered_buses
 
