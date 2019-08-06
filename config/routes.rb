@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   get "buses/:id/active" => "buses#active" ,as: :activate_bus
   get "buses/:id/suspend" => "buses#suspend" ,as: :suspend_bus
   get "reservations/filter/:scope" => "reservations#index", as: :filtered_reservations
+  get "reservations/:id" => "reservations#index", as: :bus_reservations
   get "buses/filter/:scope" => "buses#index", as: :filtered_buses
+  get "search/bus" => "buses#index", as: :search_bus
+
+  get 'load_reservation_seats' => "reservations#load_reservation_seats"
 
   get "reservations/new/:id" => "reservations#new", as: :new_reservation
 

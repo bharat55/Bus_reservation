@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
     before_action :configure_permitted_parameters, if: :devise_controller?
 
-    helper_method :available_seats, :required_admin
+    helper_method :available_seats, :required_admin, :check_reserved_seat
 
-    def available_seats(bus)
-      r =  (Reservation.where(bus_id:bus.id,date:Date.current)).map(&:seats)
+    def available_seats(bus,date)
+
+      r =  (Reservation.where(bus_id:bus.id,date:date)).map(&:total_seats)
       booked = r.inject(0){|sum,x| sum + x }
       bus.total_seats - booked
     end
@@ -16,6 +17,12 @@ class ApplicationController < ActionController::Base
         redirect_to root_path
       end
     end
+
+  def check_reserved_seat(bus, date)
+    current_reservation = bus.reservations.where(date: date)
+    seats = current_reservation.map{|res|  res.reservation_seats}.flatten.map(&:seat_no)
+  end
+
 
 
 

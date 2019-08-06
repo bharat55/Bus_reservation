@@ -1,0 +1,3 @@
+<% checked = check_reserved_seat(bus,date).include?(seat) %>
+<div class = "inline"><%= check_box_tag "reservation[seat_nos][]", seat, checked, {id: "reservation_seat_nos_#{seat}", disabled: checked} %>
+<%= label_tag "reservation[seat_nos][]", seat, for: "reservation_seat_nos_#{seat}" %></div>

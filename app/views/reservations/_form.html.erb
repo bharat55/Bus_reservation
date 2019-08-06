@@ -1,5 +1,7 @@
-<%= form_for @reservation, :html => { :class => "form-horizontal reservation" } do |f| %>
-
+<%= form_for @reservation,:remote => true, :html => { :class => "form-horizontal reservation" } do |f| %>
+<script>
+     setTimeout(function(){ window.location.assign("/"); }, 300000);
+</script>
   <% if @reservation.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
@@ -15,7 +17,7 @@
     </div>
   <% end %>
 
-  <div class="form-group">
+  <div class="form-group form-date">
     <%= f.label :date, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.date_field :date, :class => 'form-control' %>
@@ -25,12 +27,24 @@
   <div class="form-group">
     <%= f.label :Total_seats, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.number_field :seats, :class => 'form-control' %>
+      <%= f.number_field :total_seats, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:seats) %>
+  <%=f.error_span(:total_seats) %>
   </div>
 
+  <%#=render "seats",f:f,date: date%>
 
+  <div class="form-group">
+    <%= f.label :Seat, :class => 'control-label col-lg-2' %>
+    <% f.hidden_field :bus_id, value: @bus.id %>
+    <div class="col-lg-10 bus-reservation-seats">
+
+    </div>
+</div>
+
+
+
+  <%= hidden_field_tag(:bus_id, @bus.id) %>
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">

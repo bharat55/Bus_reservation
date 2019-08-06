@@ -1,0 +1,1 @@
+$(".bus-reservation-seats").html("<%= j render(partial: 'reservations/reservation_list', collection: @total_seats, as: :seat, locals: {date: @date, bus: @bus}) %>");

@@ -9,6 +9,7 @@ gem 'devise'
 #for layouts and theme
 gem "twitter-bootstrap-rails"
 
+gem 'jquery-rails'
 
 #used to apply theme on form
 gem 'bootstrap_form'
