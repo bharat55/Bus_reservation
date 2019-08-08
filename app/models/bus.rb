@@ -15,4 +15,17 @@ class Bus < ApplicationRecord
 
  scope :my_buses,->(bus_owner){where(bus_owner_id:bus_owner)}
 
+ def self.search(source, destination)
+
+     where("source LIKE :source AND destination LIKE :destination ",
+         {:source => "#{source}%", :destination => "#{destination}"})
+ end
+
+ def avaialable_seats(date)
+
+ end
+
+
+
+
 end

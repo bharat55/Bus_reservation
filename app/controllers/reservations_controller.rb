@@ -1,8 +1,9 @@
     class ReservationsController < ApplicationController
       before_action :required_signin
-       before_action :find_bus,only:[:create]
+      before_action :find_bus,only:[:create]
       before_action :set_reservation, only: [:show, :edit, :update, :destroy]
       before_action :valid_seats,:valid_date ,only:[:create]
+
 
       # GET /reservations
       # GET /reservations.json
@@ -79,12 +80,6 @@
         end
       end
 
-      def load_reservation_seats
-        @bus = Bus.find(params[:bus_id])
-        @date = params[:date]
-        @total_seats = Array(1..@bus.total_seats)
-      end
-
 
 
       private
@@ -138,6 +133,14 @@
 
         def find_bus
           @bus = Bus.find(params[:bus_id])
+        end
+
+        def valid_seat_counts
+          binding.pry
+          unless reservation_params[:total_seats] == reservation_params[:seat_nos].count
+            flash[:error] = "total seats doesn't matches to selected seats!!"
+            redirect_to reservation_path
+          end
         end
 
 

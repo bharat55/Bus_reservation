@@ -18,5 +18,15 @@ module ReservationsHelper
     date.strftime("%A")
   end
 
+  def seat_numbers(reservation)
+    seats = ""
+    array = reservation.reservation_seats.map(&:seat_no)
+    array.each do |seat|
+      seats += "#{seat},"
+    end
+    seats
+  end
+
+
 
 end

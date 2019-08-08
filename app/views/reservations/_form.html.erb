@@ -20,7 +20,7 @@
   <div class="form-group form-date">
     <%= f.label :date, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.date_field :date, :class => 'form-control' %>
+      <%= f.date_field :date, :class => 'form-control',min: Date.today%>
     </div>
     <%=f.error_span(:date) %>
   </div>
@@ -35,12 +35,10 @@
   <%#=render "seats",f:f,date: date%>
 
   <div class="form-group">
-    <%= f.label :Seat, :class => 'control-label col-lg-2' %>
+    <%= f.label :Seats, :class => 'control-label col-lg-2 show_seat' %>
     <% f.hidden_field :bus_id, value: @bus.id %>
-    <div class="col-lg-10 bus-reservation-seats">
-
-    </div>
-</div>
+    <div class="col-lg-10 bus-reservation-seats"></div>
+  </div>
 
 
 
@@ -50,7 +48,7 @@
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                reservations_path, :class => 'btn btn-default' %>
+                root_path, :class => 'btn btn-default' %>
     </div>
   </div>
 

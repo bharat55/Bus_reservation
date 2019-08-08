@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
     helper_method :available_seats, :required_admin, :check_reserved_seat
 
     def available_seats(bus,date)
-
       r =  (Reservation.where(bus_id:bus.id,date:date)).map(&:total_seats)
       booked = r.inject(0){|sum,x| sum + x }
       bus.total_seats - booked

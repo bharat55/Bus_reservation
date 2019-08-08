@@ -37,11 +37,12 @@
             <td><%= bus.destination %></td>
             <td><%=formate_time(bus.departure_time)%></td>
             <td><%= formate_time(bus.arrival_time) %></td>
-            <td><%= available_seats(bus) %></td>
+            <td><%= available_seats(bus,Date.current) %></td>
             <td><%= bus.status%>
             <td><%= status_button(bus) %></td>
           <%if rightfull_person?(bus)%>
             <td><%= link_to t('.edit', :default => t("helpers.links.edit")),edit_bus_path(bus),:class => 'btn btn-default btn-xs btn-warning'%></td>
+           <td><%= link_to t('.reservations', :default => t("helpers.links.reservations")),bus_reservations_path(bus),:class => 'btn btn-default btn-xs btn-warning'%></td>
           <%end%>
           </tr>
       <%end%>

@@ -1,39 +1,20 @@
-<%- model_class = Bus -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
+  <h3>Available buses :- <%=format_date(Date.current)%></h3>
+ <hr>
 
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:source) %></th>
-      <th><%= model_class.human_attribute_name(:destination) %></th>
-      <th><%= model_class.human_attribute_name(:departure_time) %></th>
-      <th><%= model_class.human_attribute_name(:arrival_time) %></th>
-      <th><%= model_class.human_attribute_name(:Available_Seats) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @buses.each do |bus| %>
-
-    <%if bus.active? && owner_approved?(bus)%>
-          <tr>
-            <td><%= bus.name %></td>
-            <td><%= bus.source %></td>
-            <td><%= bus.destination %></td>
-            <td><%=formate_time(bus.departure_time)%></td>
-            <td><%= formate_time(bus.arrival_time) %></td>
-            <td><%= available_seats(bus) %></td>
-            <td>
-            <%=book_if_seat_available(bus)%>
-            </td>
-          <%#if right_bus_owner?(bus)%>
-            <!-- <td><%#= link_to t('.edit', :default => t("helpers.links.edit")),edit_bus_path(bus),:class => 'btn btn-default btn-xs btn-warning'%></td> -->
-          <%#end%>
-          </tr>
-      <%end%>
-    <% end %>
-  </tbody>
-</table>
+   <%- model_class = Bus -%>
+   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:name) %></th>
+        <th><%= model_class.human_attribute_name(:source) %></th>
+        <th><%= model_class.human_attribute_name(:destination) %></th>
+        <th><%= model_class.human_attribute_name(:departure_time) %></th>
+        <th><%= model_class.human_attribute_name(:arrival_time) %></th>
+        <th><%= model_class.human_attribute_name(:Available_Seats) %></th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%=render partial:"bus", collection: @buses %>
+    </tbody>
+  </table>

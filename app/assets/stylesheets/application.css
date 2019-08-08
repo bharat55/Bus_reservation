@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+ .bus-reservation-seats {
+    display: -webkit-box;
+}
+
+.seats {
+    padding-left: 19px;
+}

@@ -7,11 +7,14 @@ class BusesController < ApplicationController
   # GET /buses
   # GET /buses.json
   def index
-    case params[:scope]
-    when "my_buses"
-      @buses = Bus.my_buses(current_bus_owner.id)
+    if params[:scope]
+      case params[:scope]
+      when "my_buses"
+        @buses = Bus.my_buses(current_bus_owner.id)
+      end
     else
       @buses = Bus.all
+      @date = Date.current
     end
   end
 
@@ -19,6 +22,8 @@ class BusesController < ApplicationController
   # GET /buses/1.json
   def show
   end
+
+
 
   # GET /buses/new
   def new
