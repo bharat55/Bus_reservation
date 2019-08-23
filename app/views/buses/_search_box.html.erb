@@ -1,0 +1,16 @@
+
+<div class="home">
+ <div class = "search-your-bus">Search your Bus</div>
+   <%= form_tag search_bus_path, :method => 'get' do %>
+     <p class="center">
+     <div class="search-container">
+       <h4 style="display: inline;"> <%= text_field_tag :source, params[:source], placeholder:"From", class:"search-fields"%></h5>
+        <h4 style="display: inline;"> <%= text_field_tag :destination, params[:destination], placeholder:"To",class:"search-fields" %></h4>
+        <h4 style="display: inline;"><%= date_field_tag :date, params[:date],:min=> Date.today,class:"search-fields"  %></h4>
+         <%= submit_tag "Search" ,class:"search-btn"%>
+      </div>
+
+     </p>
+ <% end %>
+ </div>
+

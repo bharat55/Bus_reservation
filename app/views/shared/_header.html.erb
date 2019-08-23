@@ -10,10 +10,13 @@
           <ul class="nav navbar-nav">
             <li><%= link_to "Home", root_path  %></li>
             <%if current_bus_owner%>
-              <li><%= link_to "Add Bus", new_bus_path %></li>
+              <li><%= link_to "Add Bus", new_bus_owners_bus_path %></li>
             <%end%>
             <%if admin?%>
-                <li><%= link_to "BusOwners", bus_owners_path %></li>
+                <li><%= link_to "BusOwners",  admin_bus_owners_path %></li>
+            <%end%>
+            <%if current_bus_owner || current_user%>
+                <li><%= link_to "My Reservations",filtered_reservations_path("my_reservation")%></li>
             <%end%>
 
 
@@ -22,12 +25,10 @@
            <ul class="nav navbar-nav" style="float: right">
             <% if  current_user %>
                 <li><%=link_to "#{current_user.name}", user_path(current_user)%>
-                <li><%= link_to "Account-Setting",edit_user_path(current_user)%>
-                <li><%=link_to "Log out", destroy_bus_owner_session_path,method: :delete%>
+                <li><%=link_to "Log out", destroy_user_session_path,method: :delete%>
             <%elsif current_bus_owner%>
                 <li><%=link_to "#{current_bus_owner.name}", bus_owner_path(current_bus_owner)%>
-                <li><%= link_to "Account-Setting",edit_bus_owner_path(current_bus_owner)%>
-                <li><%=link_to "Log out", destroy_user_session_path,method: :delete%>
+                <li><%=link_to "Log out",  destroy_bus_owner_session_path,method: :delete%>
             <%else%>
                 <li><%=link_to "Sign Up", new_user_registration_path%>
                 <li><%=link_to "Sign in" , new_user_session_path%>

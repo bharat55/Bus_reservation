@@ -1,0 +1,2 @@
+module BusOwners::BusesHelper
+end

@@ -1,33 +1,64 @@
 Rails.application.routes.draw do
+devise_for :bus_owners
+devise_for :users
 
-  resources :buses
-  get "/book_bus_seats/show" => "book_bus_seats#show"
-  get "buses/:id/active" => "buses#active" ,as: :activate_bus
-  get "buses/:id/suspend" => "buses#suspend" ,as: :suspend_bus
-  get "reservations/filter/:scope" => "reservations#index", as: :filtered_reservations
-  get "reservations/:id" => "reservations#index", as: :bus_reservations
-  get "buses/filter/:scope" => "buses#index", as: :filtered_buses
-  get "search/bus" => "home#index", as: :search_bus
+  namespace :admin do
+    resources :buses do
+      member do
+        get "active"
+        get "suspend"
+      end
+    end
+    resources :bus_owners do
+      member do
+        get "approve"
+        get "suspend"
+      end
+    end
+  end
+
+  namespace :bus_owners do
+    resources :buses do
+      resources :reservations,only:[:index]
+      member do
+        get "active"
+        get "suspend"
+      end
+    end
+  end
 
 
+  resources :buses do
+    resources :reservations do
+     delete "cancel" =>"reservations#cancel"
+    end
+  end
 
-  get "reservations/new/:id" => "reservations#new", as: :new_reservation
-
-  resources :reservations
-  devise_for :bus_owners, controllers: {
-        sessions: 'bus_owners/sessions'
-      }
-  # devise_for :users
-  devise_for :users, controllers: {
-        sessions: 'users/sessions'
-      }
-
-
-  get "bus_owners/approve/:id" => "bus_owners#approve" ,as: :approve_owner
-  get "bus_owners/disapprove/:id" => "bus_owners#disapprove" ,as: :disapprove_owner
-  get "bus_owners/suspend/:id" => "bus_owners#suspend", as: :suspend_owner
+  resources :book_bus_seats,only:[:index]
   resources :users
   resources :bus_owners
+
+
+
+
+  # get "/book_bus_seats/show" => "book_bus_seats#show"
+  get "reservations/filter/:scope" => "reservations#index", as: :filtered_reservations
+  get "search/buses" => "buses#index", as: :search_bus
+
+  root to: "buses#index"
+
+  get "/*args"=>"buses#index"
+
+  # get "reservations/new/:id" => "reservations#new", as: :new_reservation
+
+
+
+  # devise_for :users
+
+
+
+
+
 
 
 
@@ -41,7 +72,8 @@ Rails.application.routes.draw do
      # end
 
 
-    root to: "home#index"
+
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -1,6 +1,14 @@
-<h2>Customer LogIn</h2>
-<%=link_to "customer", user_session_path,class:"btn btn-secondary"%>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<%=link_to "Bus Owner", bus_owner_session_path,class:"btn btn-secondary"%>
+<div class="container">
+ <ul class="nav nav-tabs">
+   <li class="active"><%=link_to "customer", user_session_path,class:"btn btn-secondary"%></li>
+   <li><%=link_to "Bus Owner", bus_owner_session_path,class:"btn btn-secondary"%></li>
+ </ul>
+</div>
+
+
+  <h2>Customer LogIn</h2>
+
+
 <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
 

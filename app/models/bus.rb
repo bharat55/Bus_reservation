@@ -2,7 +2,8 @@ class Bus < ApplicationRecord
   belongs_to :bus_owner
   has_many :reservations
 
-  enum status:{active:"active",suspend:"suspend"}
+  enum status:{active:"active",suspended:"suspended"}
+
 
   validates :name, presence: true
   validates :registration_number, presence: true
@@ -13,19 +14,25 @@ class Bus < ApplicationRecord
   validates :arrival_time, presence: true
 
 
- scope :my_buses,->(bus_owner){where(bus_owner_id:bus_owner)}
+
 
  def self.search(source, destination)
-
-     where("source LIKE :source AND destination LIKE :destination ",
+    if source.blank?
+      where("destination LIKE :destination ",{:destination => "#{destination}"})
+    elsif destination.blank?
+      where("source LIKE :source ",{:source => "#{source}"})
+    elsif  !source.blank? && !destination.blank?
+      where("source LIKE :source AND destination LIKE :destination ",
          {:source => "#{source}%", :destination => "#{destination}"})
+    end
  end
 
- def avaialable_seats(date)
+ # def avaialable_seats(date)
 
- end
+ # end
 
 
 
 
 end
+

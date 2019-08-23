@@ -15,3 +15,6 @@
 //= require activestorage
 //= require turbolinks
 //= require reservations
+//= require jquery.simple.timer
+
+

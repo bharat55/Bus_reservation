@@ -1,11 +1,13 @@
 class Reservation < ApplicationRecord
   belongs_to :bus
+  belongs_to :reservable, polymorphic: true
   has_many :reservation_seats, dependent: :destroy
 
   validates :date, presence: true
   validates :seat_nos, presence: true
+  enum status:{done:"done",cancelled:"cancelled"}
 
-  scope :my_reservation,->(user){where(user_id:user).or(where(bus_owner_id:user))}
+
   scope :bus_reservation,->(bus){where(bus_id:bus)}
 
   def seat_nos

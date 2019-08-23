@@ -1,7 +1,5 @@
-<%= form_for @reservation,:remote => true, :html => { :class => "form-horizontal reservation" } do |f| %>
-<script>
-     setTimeout(function(){ window.location.assign("/"); }, 300000);
-</script>
+
+<%= form_for [@bus,@reservation], :html => { :class => "form-horizontal reservation" } do |f| %>
   <% if @reservation.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
@@ -37,7 +35,8 @@
   <div class="form-group">
     <%= f.label :Seats, :class => 'control-label col-lg-2 show_seat' %>
     <% f.hidden_field :bus_id, value: @bus.id %>
-    <div class="col-lg-10 bus-reservation-seats"></div>
+    <div class="col-lg-10 bus-reservation-seats" id="sk" style="width:400px;padding-right: 15px">
+    </div>
   </div>
 
 
@@ -53,3 +52,7 @@
   </div>
 
 <% end %>
+
+
+
+

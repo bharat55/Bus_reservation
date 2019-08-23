@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_05_140353) do
+ActiveRecord::Schema.define(version: 2019_08_23_100849) do
 
   create_table "bus_owners", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2019_08_05_140353) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status", default: "disapprove"
+    t.string "status", default: "Approval Pending"
     t.index ["confirmation_token"], name: "index_bus_owners_on_confirmation_token", unique: true
     t.index ["email"], name: "index_bus_owners_on_email", unique: true
     t.index ["reset_password_token"], name: "index_bus_owners_on_reset_password_token", unique: true
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_08_05_140353) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "active"
+    t.string "suspended_by"
     t.index ["bus_owner_id"], name: "index_buses_on_bus_owner_id"
   end
 
@@ -68,8 +69,8 @@ ActiveRecord::Schema.define(version: 2019_08_05_140353) do
 
   create_table "reservations", force: :cascade do |t|
     t.integer "bus_id"
-    t.integer "user_id"
-    t.integer "bus_owner_id"
+    t.string "reservable_type"
+    t.integer "reservable_id"
     t.integer "total_seats"
     t.date "date"
     t.time "time"
@@ -77,7 +78,9 @@ ActiveRecord::Schema.define(version: 2019_08_05_140353) do
     t.string "to"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "done"
     t.index ["bus_id"], name: "index_reservations_on_bus_id"
+    t.index ["reservable_type", "reservable_id"], name: "index_reservations_on_reservable_type_and_reservable_id"
   end
 
   create_table "users", force: :cascade do |t|

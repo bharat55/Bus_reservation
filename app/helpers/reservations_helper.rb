@@ -1,17 +1,11 @@
 module ReservationsHelper
   def customer_name(reservation)
-    if reservation.user_id
-      user = User.find(reservation.user_id)
-      user.name
-    else
-      bus_owner = BusOwner.find(reservation.bus_owner_id)
-      bus_owner.name
-    end
+    reservation.reservable.name
   end
 
 
   def formatted_date(date)
-    date.strftime("%m/%d/%y")
+    date.strftime("%d/%m/%y")
   end
 
   def day_name(date)
@@ -23,9 +17,31 @@ module ReservationsHelper
     array = reservation.reservation_seats.map(&:seat_no)
     array.each do |seat|
       seats += "#{seat},"
+
     end
-    seats
+    seats.chomp(',')
   end
+
+  def reservation_status(reservation)
+    case reservation.status
+    when "cancelled"
+      '<p style= "color:red">Cancelled</p>'.html_safe
+    when "done"
+       '<p style= "color:green">Confirmed</p>'.html_safe
+    end
+  end
+
+
+
+  def reservation_title
+    if request.url.include?("my_reservation")
+      "My Reservation"
+    else
+      "Reservation"
+    end
+  end
+
+
 
 
 

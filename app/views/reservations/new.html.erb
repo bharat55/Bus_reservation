@@ -1,5 +1,13 @@
 <%- model_class = Reservation -%>
+
+
+
 <div class="page-header">
-  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
+  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %><span class='timer' data-minutes-left= 5 style="float: right"></span></h1>
+
 </div>
-<%= render :partial => 'form' %>
+
+
+
+<%= render :partial => 'form'%>
+

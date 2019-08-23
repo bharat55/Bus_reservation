@@ -14,10 +14,66 @@
  *= require_self
  */
 
+.search-your-bus{
+    width: 100%;
+    height: 10%;
+    font-family: Lato;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 4;
+    letter-spacing: .1px;
+    text-align: center;
+    color: black;
+    margin: -60px;
+    padding-left: 108px;
+
+}
+
+.search-btn {
+    -webkit-appearance: button;
+    cursor: pointer;
+    width: 163px;
+    padding: 5px;
+    /* border: coral; */
+    border-radius: 6px;
+}
+
  .bus-reservation-seats {
-    display: -webkit-box;
+    width:100px;
 }
 
 .seats {
     padding-left: 19px;
 }
+
+.timer {
+   display: -webkit-box;
+   color:red;
+
+}
+
+.root-sidebar{
+    height:100%;
+    background-color: grey;
+}
+
+
+
+/* .bus-reservation-seats {
+    position: relative;
+    margin-left: 50px;
+    width:380px;
+    height: 120px;
+}
+
+.seats {
+    position: relative;
+    width: :50px;
+    height: 30px;
+    float: left;
+}
+
+
+
+*/
+

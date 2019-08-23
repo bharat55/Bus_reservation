@@ -9,9 +9,9 @@ module BusesHelper
 
 
 
-  def book_if_seat_available(bus)
-    if available_seats(bus,Date.current) > 0
-     link_to t('.Book seat', :default => t("helpers.links.Book seat")),new_reservation_path(bus),:class => 'btn btn-default btn-xs btn-success'
+  def book_if_seat_available(bus,date)
+    if available_seats(bus,date) > 0
+     link_to t('.Book seat', :default => t("helpers.links.Book seat")),new_bus_reservation_path(bus),:class => 'btn btn-default btn-xs btn-success'
     else
         link_to t('.Unavailable', :default => t("helpers.links.Unavailable")),
                       :class => 'btn-default btn-danger'
@@ -20,7 +20,7 @@ module BusesHelper
 
 
   def owner_approved?(bus)
-    bus.bus_owner.approve?
+    bus.bus_owner.approved?
   end
 
 
@@ -29,13 +29,24 @@ module BusesHelper
   end
 
   def status_button(bus)
-    case bus.status
-    when "active"
-     link_to t('.suspend', :default => t("helpers.links.suspend")),suspend_bus_path(bus),
-      :class => 'btn btn-default btn-xs btn-danger'
-    when "suspend"
-      link_to t('.active', :default => t("helpers.links.active")),activate_bus_path(bus),
-      :class => 'btn btn-default btn-xs btn-success'
+    if current_user && current_user.admin?
+      case bus.status
+      when "active"
+       link_to t('.suspend', :default => t("helpers.links.suspend")),suspend_admin_bus_path(bus),
+        :class => 'btn btn-default btn-xs btn-danger'
+      when "suspended"
+        link_to t('.active', :default => t("helpers.links.active")),active_admin_bus_path(bus),
+        :class => 'btn btn-default btn-xs btn-success'
+      end
+    else
+      case bus.status
+      when "active"
+       link_to t('.suspend', :default => t("helpers.links.suspend")),suspend_bus_owners_bus_path(bus),
+        :class => 'btn btn-default btn-xs btn-danger'
+      when "suspended"
+        link_to t('.active', :default => t("helpers.links.active")), active_bus_owners_bus_path(bus),
+        :class => 'btn btn-default btn-xs btn-success'
+      end
     end
   end
 

@@ -1,16 +1,19 @@
 class BusesController < ApplicationController
   before_action :set_bus, only: [:show, :edit, :update, :destroy,:active,:suspend]
-  before_action :authorised_person, only:[:edit,:update,:active,:suspend]
-  before_action :required_signin, except:[:index]
-  before_action :required_valid_bus_owner, only: [:new,:create]
+  # before_action :authorised_person, only:[:edit,:update,:active,:suspend]
+  before_action :require_search_params, only:[:index]
+  # before_action :required_signin, except:[:index]
+
 
   # GET /buses
   # GET /buses.json
   def index
-    if params[:scope]
-      case params[:scope]
-      when "my_buses"
-        @buses = Bus.my_buses(current_bus_owner.id)
+    if params[:commit] == "Search"
+      @buses = Bus.search(params[:source],params[:destination])
+      if params[:date].blank?
+        @date = Date.current
+      else
+        @date = params[:date]
       end
     else
       @buses = Bus.all
@@ -26,88 +29,36 @@ class BusesController < ApplicationController
 
 
   # GET /buses/new
-  def new
-    @bus = Bus.new
 
-  end
-
-  # GET /buses/1/edit
-  def edit
-  end
-
-  def active
-    @bus.status = "active"
-    if @bus.save
-      flash[:notice] = "Bus Activated, Ready to Go!"
-      redirect_to @bus.bus_owner
-    end
-
-  end
-
-  def suspend
-     @bus.status = "suspend"
-    if @bus.save
-      flash[:error] = "Bus Suspended!!!"
-      redirect_to @bus.bus_owner
-    end
-  end
-
-  # POST /buses
-  # POST /buses.json
-  def create
-
-    @bus = Bus.new(bus_params)
-    @bus.bus_owner = current_bus_owner
-    respond_to do |format|
-      if @bus.save
-        format.html { redirect_to root_path, notice: 'Bus was successfully created.' }
-        format.json { render :show, status: :created, location: @bus }
-      else
-        format.html { render :new }
-        format.json { render json: @bus.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /buses/1
-  # PATCH/PUT /buses/1.json
-  def update
-    respond_to do |format|
-      if @bus.update(bus_params)
-        format.html { redirect_to @bus, notice: 'Bus was successfully updated.' }
-        format.json { render :show, status: :ok, location: @bus }
-      else
-        format.html { render :edit }
-        format.json { render json: @bus.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /buses/1
-  # DELETE /buses/1.json
-  def destroy
-    @bus.destroy
-    respond_to do |format|
-      format.html { redirect_to buses_url, notice: 'Bus was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bus
-      @bus = Bus.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def bus_params
-      params.require(:bus).permit(:name, :registration_number, :source, :destination, :total_seats, :bus_owners_id, :departure_time, :arrival_time)
-    end
-
-    def required_valid_bus_owner
-      unless current_bus_owner && current_bus_owner.status == "approve"
-        flash[:error] = "You are not authorized to add bus !!! "
-        redirect_to root_path
+      if params[:id]
+        @bus = Bus.find(params[:id])
+      else
+        @bus = Bus.find(params[:bus_id])
       end
     end
+
+
+
+    def require_search_params
+      if params[:commit] == "Search"
+        unless !params[:source].blank? || !params[:destination].blank?
+          flash[:error] = "Please fill either source or destination or both!!"
+          redirect_to root_path
+        end
+      end
+    end
+    # Never trust parameters from the scary internet, only allow the white list through.
+
+
+
+
 end
+
+
+
+
+

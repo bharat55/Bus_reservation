@@ -1,0 +1,2 @@
+module BusOwners::ReservationsHelper
+end
