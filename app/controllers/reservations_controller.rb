@@ -1,7 +1,7 @@
   class ReservationsController < ApplicationController
     before_action :required_signin
     before_action :find_bus,only:[:create,:valid_bus]
-    before_action :set_reservation, only: [:show, :edit, :update, :destroy]
+    # before_action :set_reservation, only: [:show, :edit, :update, :destroy]
     before_action :valid_date ,:valid_seat_counts,only:[:create]
     before_action :valid_bus,only:[:new,:create]
 
@@ -10,7 +10,7 @@
     # GET /reservations.json
     def index
       if params[:scope]
-        @reservations = customer.reservations
+        @reservations = customer.reservations.order("date")
       else
         @reservations = Reservation.all
       end
@@ -18,8 +18,8 @@
 
     # GET /reservations/1
     # GET /reservations/1.json
-    def show
-    end
+    # def show
+    # end
 
     # GET /reservations/new
     def new
@@ -28,8 +28,8 @@
     end
 
     # GET /reservations/1/edit
-    def edit
-    end
+    # def edit
+    # end
 
     # POST /reservations
     # POST /reservations.json
@@ -52,27 +52,27 @@
 
     # PATCH/PUT /reservations/1
     # PATCH/PUT /reservations/1.json
-    def update
-      respond_to do |format|
-        if @reservation.update(reservation_params)
-          format.html { redirect_to @reservation, notice: 'Reservation was successfully updated.' }
-          format.json { render :show, status: :ok, location: @reservation }
-        else
-          format.html { render :edit }
-          format.json { render json: @reservation.errors, status: :unprocessable_entity }
-        end
-      end
-    end
+    # def update
+    #   respond_to do |format|
+    #     if @reservation.update(reservation_params)
+    #       format.html { redirect_to @reservation, notice: 'Reservation was successfully updated.' }
+    #       format.json { render :show, status: :ok, location: @reservation }
+    #     else
+    #       format.html { render :edit }
+    #       format.json { render json: @reservation.errors, status: :unprocessable_entity }
+    #     end
+    #   end
+    # end
 
     # DELETE /reservations/1
     # DELETE /reservations/1.json
-    def destroy
-      @reservation.destroy
-      respond_to do |format|
-        format.html { redirect_to request.referrer, notice: 'Reservation was successfully destroyed.' }
-        format.json { head :no_content }
-      end
-    end
+    # def destroy
+    #   @reservation.destroy
+    #   respond_to do |format|
+    #     format.html { redirect_to request.referrer, notice: 'Reservation was successfully destroyed.' }
+    #     format.json { head :no_content }
+    #   end
+    # end
 
     def cancel
       @bus = Bus.find(params[:bus_id])
@@ -88,22 +88,22 @@
 
     private
       # Use callbacks to share common setup or constraints between actions.
-      def set_reservation
-        @reservation = Reservation.find(params[:id])
-      end
+      # def set_reservation
+      #   @reservation = Reservation.find(params[:id])
+      # end
 
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def reservation_params
         params.require(:reservation).permit(:bus_id , :total_seats, :date, seat_nos: [])
-
       end
-      def on_date
-        reservation = params["reservation"]
-        date = reservation[:date]
-        @date = date.to_date
 
-      end
+
+      # def on_date
+      #   reservation = params["reservation"]
+      #   date = reservation[:date]
+      #   @date = date.to_date
+      # end
 
       # def valid_seats
       #   if reservation_params[:total_seats]

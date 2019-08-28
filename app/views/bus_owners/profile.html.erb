@@ -1,0 +1,68 @@
+<%- model_class = BusOwner -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @bus_owner.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dd><%= @bus_owner.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:license_number) %>:</strong></dt>
+  <dd><%= @bus_owner.license_number %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:gst_number) %>:</strong></dt>
+  <dd><%= @bus_owner.gst_number %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:experiance) %>:</strong></dt>
+  <dd><%= experience_in_years(@bus_owner) %></dd>
+</dl>
+<hr>
+
+<h2>My Buses</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:source) %></th>
+      <th><%= model_class.human_attribute_name(:destination) %></th>
+      <th><%= model_class.human_attribute_name(:departure_time) %></th>
+      <th><%= model_class.human_attribute_name(:arrival_time) %></th>
+      <th><%= model_class.human_attribute_name(:Available_Seats) %></th>
+       <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @bus_owner.buses.each do |bus| %>
+
+
+          <tr>
+            <td><%= bus.name %></td>
+            <td><%= bus.source %></td>
+            <td><%= bus.destination %></td>
+            <td><%=formate_time(bus.departure_time)%></td>
+            <td><%= formate_time(bus.arrival_time) %></td>
+            <td><%= available_seats(bus,Date.current) %></td>
+            <td><%= bus.status%>
+            <td><%= status_button(bus) %></td>
+          <%if rightfull_person?(bus)%>
+            <td><%= link_to t('.edit', :default => t("helpers.links.edit")),edit_bus_owners_bus_path(bus),:class => 'btn btn-default btn-xs btn-warning'%></td>
+           <td><%= link_to t('.reservations', :default => t("helpers.links.reservations")), bus_owners_bus_reservations_path(bus),:class => 'btn btn-default btn-xs btn-warning'%></td>
+          <%end%>
+          </tr>
+      <%end%>
+
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+

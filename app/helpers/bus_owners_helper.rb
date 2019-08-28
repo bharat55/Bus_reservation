@@ -4,7 +4,7 @@ module BusOwnersHelper
   end
 
 
-  def action_on_owner(owner)
+  def   action_on_owner(owner)
 
     case owner.status
     when "approved"

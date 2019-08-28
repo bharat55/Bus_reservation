@@ -1,0 +1,49 @@
+<%- model_class = Reservation -%>
+<div class="page-header">
+  <h1>All Buses Reservation</h1>
+</div>
+<div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:bus) %></th>
+      <%unless request.url.include?("my_reservation")%>
+       <th><%= model_class.human_attribute_name(:Name) %></th>
+      <%end%>
+      <th><%= model_class.human_attribute_name(:Totalseats) %></th>
+       <th><%= model_class.human_attribute_name(:seat_numbers) %></th>
+      <th><%= model_class.human_attribute_name(:day) %></th>
+      <th><%= model_class.human_attribute_name(:date) %></th>
+      <th><%= model_class.human_attribute_name(:from) %></th>
+      <th><%= model_class.human_attribute_name(:to) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+     <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reservations.each do |reservation| %>
+      <tr>
+
+        <td><%= reservation.bus.name %></td>
+        <%unless request.url.include?("my_reservation")%>
+         <td><%= customer_name(reservation) %></td>
+        <%end%>
+        <td><%= reservation.total_seats %></td>
+        <td><%= seat_numbers(reservation) %></td>
+         <td><%= day_name(reservation.date) %></td>
+        <td><%= formatted_date(reservation.date) %></td>
+        <td><%= reservation.from %></td>
+        <td><%= reservation.to %></td>
+        <td><%= reservation_status(reservation) %></td>
+      <%if current_user || current_bus_owner %>
+        <td>
+        <%if reservation.status == "done" %>
+          <%= link_to t('.cancel Reservation', :default => t("helpers.links.cancel Reservation")),bus_reservation_cancel_path(reservation.bus_id,reservation),method: :delete,:class => 'btn btn-default btn-xs btn-danger'%>
+        <%end%>
+        </td>
+      </tr>
+      <%end%>
+    <% end %>
+  </tbody>
+</table>
+</div>

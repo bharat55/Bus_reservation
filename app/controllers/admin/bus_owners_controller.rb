@@ -1,5 +1,7 @@
 class Admin::BusOwnersController < ApplicationController
+  before_action :required_admin
   before_action :find_owner,except:[:index]
+
 
   def index
     @bus_owners = BusOwner.all
@@ -7,7 +9,6 @@ class Admin::BusOwnersController < ApplicationController
 
 
   def show
-
   end
 
 
@@ -32,5 +33,12 @@ class Admin::BusOwnersController < ApplicationController
   private
   def find_owner
      @bus_owner = BusOwner.find(params[:id])
+  end
+
+  def required_admin
+    unless current_user && current_user.admin?
+      flash[:error] = "You are not Authorised person to be continue!!"
+      redirect_to root_path
+    end
   end
 end

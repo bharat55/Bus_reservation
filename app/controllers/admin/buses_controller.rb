@@ -1,10 +1,11 @@
 class Admin::BusesController < ApplicationController
-  before_action :find_bus
+  before_action :find_bus,except:[:index]
 
 
-  def edit
-
+  def index
+    @buses = Bus.all
   end
+
 
   def active
     if @bus.suspended_by != "bus_owner"
@@ -12,11 +13,11 @@ class Admin::BusesController < ApplicationController
       @bus.suspended_by = ""
       if @bus.save
         flash[:notice] = "Bus Activated, Ready to Go!"
-        redirect_to @bus.bus_owner
+        redirect_to admin_bus_owner_path(@bus.bus_owner)
       end
     else
       flash[:error] = "Suspended By Bus_owner!!!"
-      redirect_to @bus.bus_owner
+      redirect_to admin_bus_owner_path(@bus.bus_owner)
     end
   end
 
@@ -26,7 +27,7 @@ class Admin::BusesController < ApplicationController
     @bus.suspended_by = "admin"
     if @bus.save
       flash[:error] = "Bus Suspended!!!"
-      redirect_to @bus.bus_owner
+      redirect_to admin_bus_owner_path(@bus.bus_owner)
     end
   end
 

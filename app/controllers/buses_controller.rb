@@ -1,5 +1,4 @@
 class BusesController < ApplicationController
-  before_action :set_bus, only: [:show, :edit, :update, :destroy,:active,:suspend]
   # before_action :authorised_person, only:[:edit,:update,:active,:suspend]
   before_action :require_search_params, only:[:index]
   # before_action :required_signin, except:[:index]
@@ -23,9 +22,6 @@ class BusesController < ApplicationController
 
   # GET /buses/1
   # GET /buses/1.json
-  def show
-  end
-
 
 
   # GET /buses/new
@@ -33,13 +29,6 @@ class BusesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_bus
-      if params[:id]
-        @bus = Bus.find(params[:id])
-      else
-        @bus = Bus.find(params[:bus_id])
-      end
-    end
 
 
 
@@ -52,10 +41,6 @@ class BusesController < ApplicationController
       end
     end
     # Never trust parameters from the scary internet, only allow the white list through.
-
-
-
-
 end
 
 

@@ -12,6 +12,8 @@
       <th><%= model_class.human_attribute_name(:gst_number) %></th>
       <th><%= model_class.human_attribute_name(:experience) %></th>
        <th><%= model_class.human_attribute_name(:status) %></th>
+
+
       <th><%=t '.Action', :default => t("helpers.Action") %></th>
     </tr>
   </thead>
@@ -24,6 +26,7 @@
         <td><%= owner.license_number %></td>
         <td><%= owner.gst_number%></td>
         <td><%= experience_in_years(owner)%></td>
+
          <td><%= owner.status%></td>
 
         <td>
@@ -33,7 +36,7 @@
          <% end %>
 
         </td>
-
+         <td><%=link_to "Reservations",admin_bus_owner_buses_reservations_path(owner),class:"btn btn-xs btn-primary"%></td>
       </tr>
     <% end %>
   </tbody>

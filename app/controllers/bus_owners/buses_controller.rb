@@ -64,11 +64,11 @@ class BusOwners::BusesController < ApplicationController
       @bus.suspended_by = ""
       if @bus.save
         flash[:notice] = "Bus Activated, Ready to Go!"
-        redirect_to @bus.bus_owner
+        redirect_to profile_bus_owners_path
       end
     else
       flash[:error] = "Suspended By Admin!!!"
-      redirect_to @bus.bus_owner
+      redirect_to profile_bus_owners_path
     end
   end
 
@@ -78,7 +78,7 @@ class BusOwners::BusesController < ApplicationController
      @bus.suspended_by = "bus_owner"
     if @bus.save
       flash[:error] = "Bus Suspended!!!"
-      redirect_to @bus.bus_owner
+      redirect_to profile_bus_owners_path
     end
   end
 

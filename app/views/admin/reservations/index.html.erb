@@ -1,0 +1,37 @@
+<%- model_class = Reservation -%>
+<div class="page-header">
+ <h1><%=Admin_reservation_title(@owner,@bus)%></h1>
+</div>
+<div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:bus) %></th>
+       <th><%= model_class.human_attribute_name(:Name) %></th>
+      <th><%= model_class.human_attribute_name(:Totalseats) %></th>
+       <th><%= model_class.human_attribute_name(:seat_numbers) %></th>
+      <th><%= model_class.human_attribute_name(:day) %></th>
+      <th><%= model_class.human_attribute_name(:date) %></th>
+      <th><%= model_class.human_attribute_name(:from) %></th>
+      <th><%= model_class.human_attribute_name(:to) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reservations.each do |reservation| %>
+      <tr>
+
+        <td><%= reservation.bus.name %></td>
+         <td><%= customer_name(reservation) %></td>
+        <td><%= reservation.total_seats %></td>
+        <td><%= seat_numbers(reservation) %></td>
+         <td><%= day_name(reservation.date) %></td>
+        <td><%= formatted_date(reservation.date) %></td>
+        <td><%= reservation.from %></td>
+        <td><%= reservation.to %></td>
+        <td><%= reservation_status(reservation) %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

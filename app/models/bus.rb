@@ -31,8 +31,5 @@ class Bus < ApplicationRecord
 
  # end
 
-
-
-
 end
 
