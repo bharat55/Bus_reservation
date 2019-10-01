@@ -27,6 +27,8 @@ class Bus < ApplicationRecord
     end
  end
 
+ 
+
  # def avaialable_seats(date)
 
  # end
