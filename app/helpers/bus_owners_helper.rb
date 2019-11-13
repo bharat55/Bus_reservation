@@ -26,6 +26,9 @@ module BusOwnersHelper
   def is_rejected?
   end
 
+  def all_rejected?
+  end
+
 
 
 end
