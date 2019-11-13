@@ -23,6 +23,9 @@ module BusOwnersHelper
   def is_aprrove?
   end
 
+  def is_rejected?
+  end
+
 
 
 end
